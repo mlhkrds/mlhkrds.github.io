@@ -1,0 +1,70 @@
+/* Sized from the hero's --portrait-h/--portrait-w so the copy column can avoid it exactly. The dissolve
+   mask is set inline from the band the scene shares. */
+.portrait {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: calc(50% - var(--portrait-w) / 2);
+  width: var(--portrait-w);
+  height: var(--portrait-h);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Without JavaScript no stars will complete the body, so the photo keeps it and only fades at the crop. */
+:global(:root:not([data-js])) .portrait {
+  -webkit-mask-image: linear-gradient(180deg, #000 76%, transparent 99%) !important;
+  mask-image: linear-gradient(180deg, #000 76%, transparent 99%) !important;
+}
+
+/* The scene has already drawn the same photo on top, so the swap is invisible. */
+.image[data-hidden] {
+  opacity: 0;
+}
+
+/* Pinned to the viewport: the stars that break off stay in view while the page scrolls under them. */
+.scene {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sceneCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Reduced motion: nothing pours anywhere, so the layer simply scrolls with the hero, under the photo,
+   and its stars fade in rather than popping up once loaded. */
+.scene[data-still] {
+  position: absolute;
+  z-index: 0;
+  inset: 0 0 -20svh;
+}
+
+.scene[data-still] .sceneCanvas {
+  animation: scene-in 0.9s ease both;
+}
+
+@keyframes scene-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .portrait {
+    position: relative;
+    left: auto;
+    width: min(92vw, 560px);
+    height: auto;
+    margin-top: -6vw;
+    aspect-ratio: var(--ratio);
+  }
+}
