@@ -1,0 +1,49 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(1200px 700px at 50% -8%, rgb(63 107 255 / 0.2), transparent 65%), var(--bg);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.blue {
+  top: -24vmax;
+  left: -20vmax;
+  width: 62vmax;
+  height: 62vmax;
+  background: radial-gradient(closest-side, rgb(63 107 255 / 0.55), transparent);
+}
+
+.violet {
+  top: 6vmax;
+  right: -18vmax;
+  width: 54vmax;
+  height: 54vmax;
+  background: radial-gradient(closest-side, rgb(139 92 246 / 0.42), transparent);
+}
+
+.cyan {
+  bottom: -30vmax;
+  left: 18vmax;
+  width: 50vmax;
+  height: 50vmax;
+  background: radial-gradient(closest-side, rgb(34 199 230 / 0.3), transparent);
+}
+
+/* A soft light that trails the pointer; translated, never repainted. */
+.spotlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 680px;
+  height: 680px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.015) 45%, transparent);
+  will-change: transform;
+}

@@ -1,0 +1,169 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.head {
+  position: sticky;
+  top: 120px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 36px;
+}
+
+.rail {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 7px;
+  width: 2px;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, var(--accent), rgb(139 92 246 / 0.9));
+  box-shadow: 0 0 12px rgb(159 185 255 / 0.6);
+  transform-origin: top;
+}
+
+.list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Dimmed with colour tokens, not opacity, so the resting text still passes contrast. */
+.row {
+  position: relative;
+  padding: 24px 26px;
+  border-radius: 22px;
+  color: var(--faint);
+  transition: background-color 0.35s ease, box-shadow 0.35s ease, color 0.35s ease;
+}
+
+.row:hover,
+.row:focus-within,
+.row[data-active] {
+  background: rgb(255 255 255 / 0.045);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), inset 0 0 0 1px rgb(255 255 255 / 0.06);
+  color: var(--muted);
+}
+
+.node {
+  position: absolute;
+  top: 34px;
+  left: -35px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  background: var(--dim);
+  transition: background-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.row:hover .node,
+.row[data-active] .node {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgb(159 185 255 / 0.16), 0 0 14px rgb(159 185 255 / 0.8);
+}
+
+.logo {
+  height: auto;
+  margin-bottom: 16px;
+  opacity: 0.55;
+  transition: opacity 0.35s ease;
+}
+
+.row:hover .logo,
+.row[data-active] .logo {
+  opacity: 0.95;
+}
+
+.roles {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.roles li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+}
+
+.role {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: color 0.35s ease;
+}
+
+.row:hover .role,
+.row[data-active] .role {
+  color: var(--text);
+}
+
+.period {
+  font: 500 12px/1.9 var(--mono);
+  letter-spacing: 0.04em;
+}
+
+.summary {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.62;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.06);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .head {
+    position: static;
+  }
+
+  .timeline {
+    padding-left: 28px;
+  }
+
+  .node {
+    left: -27px;
+  }
+
+  .row {
+    padding: 20px 18px;
+  }
+}

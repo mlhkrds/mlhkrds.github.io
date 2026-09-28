@@ -1,0 +1,197 @@
+/* The tall section gives the sticky stage room to play out; each third of the scroll is one step. */
+.story {
+  position: relative;
+  height: 320svh;
+  scroll-margin-top: 0;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  display: grid;
+  align-items: center;
+  height: 100svh;
+  overflow: clip;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.steps {
+  display: grid;
+  gap: 28px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  padding-left: 20px;
+  border-left: 2px solid rgb(255 255 255 / 0.08);
+  transition: border-color 0.4s ease;
+}
+
+.step[data-active] {
+  border-left-color: var(--accent);
+}
+
+.stepKicker {
+  margin: 0 0 8px;
+  color: var(--faint);
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.4s ease;
+}
+
+.step h3 {
+  margin: 0 0 8px;
+  color: var(--faint);
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  transition: color 0.4s ease;
+}
+
+.step[data-active] .stepKicker {
+  color: var(--accent);
+}
+
+.step[data-active] h3 {
+  color: var(--text);
+}
+
+.text {
+  max-width: 34em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.step:not([data-active]) .text {
+  color: var(--faint);
+}
+
+.visual {
+  display: grid;
+  place-items: center;
+  height: min(620px, 70svh);
+  perspective: 1600px;
+}
+
+.stack {
+  position: relative;
+  width: 340px;
+  height: 220px;
+  rotate: none;
+  transform: rotateX(56deg) rotateZ(-36deg);
+  transform-style: preserve-3d;
+}
+
+.plate {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 22px 26px;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 30px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), inset 0 0 50px rgb(255 255 255 / 0.05), 0 50px 70px -40px rgb(0 0 0 / 0.9);
+  opacity: 0.55;
+  transition: opacity 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.plate[data-active] {
+  border-color: rgb(255 255 255 / 0.45);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6), inset 0 0 60px rgb(255 255 255 / 0.08), 0 0 60px -10px rgb(159 185 255 / 0.45);
+  opacity: 1;
+}
+
+.plate0 {
+  background: linear-gradient(150deg, rgb(63 107 255 / 0.55), rgb(63 107 255 / 0.12) 65%, rgb(63 107 255 / 0.05));
+}
+
+.plate1 {
+  background: linear-gradient(150deg, rgb(139 92 246 / 0.5), rgb(139 92 246 / 0.1) 65%, rgb(139 92 246 / 0.04));
+}
+
+.plate2 {
+  background: linear-gradient(150deg, rgb(34 199 230 / 0.42), rgb(34 199 230 / 0.1) 65%, rgb(34 199 230 / 0.04));
+}
+
+.plateKicker {
+  margin-bottom: 6px;
+  color: rgb(255 255 255 / 0.6);
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.14em;
+}
+
+.plate strong {
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.plateMeta {
+  color: rgb(255 255 255 / 0.72);
+  font-size: 13px;
+}
+
+/* Reduced motion: an ordinary section with the layers open and every step readable. */
+.story[data-static] {
+  height: auto;
+  padding: 96px 0;
+}
+
+.story[data-static] .stage {
+  position: static;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .story {
+    height: 260svh;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .visual {
+    order: -1;
+    height: 34svh;
+  }
+
+  .stack {
+    scale: 0.62;
+  }
+
+  .steps {
+    margin-top: 24px;
+  }
+
+  /* One step at a time on small screens; they share a single grid cell and crossfade. */
+  .story:not([data-static]) .steps {
+    grid-template-areas: "step";
+  }
+
+  .story:not([data-static]) .step {
+    grid-area: step;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .story:not([data-static]) .step[data-active] {
+    opacity: 1;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+}
